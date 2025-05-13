@@ -1,4 +1,4 @@
-# Clean Architecture Flutter App
+# Products Task EvenCir App
 
 This project follows Clean Architecture principles and implements the MVC (Model-View-Controller) pattern in Flutter.
 
