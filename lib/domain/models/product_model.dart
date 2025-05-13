@@ -31,10 +31,10 @@ class ProductAPiModel {
     String toRawJson() => json.encode(toJson());
 
     factory ProductAPiModel.fromJson(Map<String, dynamic> json) => ProductAPiModel(
-        products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
-        total: json["total"],
-        skip: json["skip"],
-        limit: json["limit"],
+        products: json["products"] == null ? [] : List<Product>.from((json["products"] as List).map((x) => Product.fromJson(x as Map<String, dynamic>))),
+        total: json["total"] as int?,
+        skip: json["skip"] as int?,
+        limit: json["limit"] as int?,
     );
 
     Map<String, dynamic> toJson() => {
@@ -148,28 +148,28 @@ class Product {
     String toRawJson() => json.encode(toJson());
 
     factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"],
-        title: json["title"],
-        description: json["description"],
-        category: json["category"],
-        price: json["price"]?.toDouble(),
-        discountPercentage: json["discountPercentage"]?.toDouble(),
-        rating: json["rating"]?.toDouble(),
-        stock: json["stock"],
-        tags: json["tags"] == null ? [] : List<String>.from(json["tags"]!.map((x) => x)),
-        brand: json["brand"],
-        sku: json["sku"],
-        weight: json["weight"],
-        dimensions: json["dimensions"] == null ? null : Dimensions.fromJson(json["dimensions"]),
-        warrantyInformation: json["warrantyInformation"],
-        shippingInformation: shippingInformationValues.map[json["shippingInformation"]]!,
-        availabilityStatus: availabilityStatusValues.map[json["availabilityStatus"]]!,
-        reviews: json["reviews"] == null ? [] : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
-        returnPolicy: returnPolicyValues.map[json["returnPolicy"]]!,
-        minimumOrderQuantity: json["minimumOrderQuantity"],
-        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
-        images: json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
-        thumbnail: json["thumbnail"],
+        id: json["id"] as int?,
+        title: json["title"]?.toString(),
+        description: json["description"]?.toString(),
+        category: json["category"]?.toString(),
+        price: (json["price"] as num?)?.toDouble(),
+        discountPercentage: (json["discountPercentage"] as num?)?.toDouble(),
+        rating: (json["rating"] as num?)?.toDouble(),
+        stock: json["stock"] as int?,
+        tags: json["tags"] == null ? [] : List<String>.from((json["tags"] as List).map((x) => x.toString())),
+        brand: json["brand"]?.toString(),
+        sku: json["sku"]?.toString(),
+        weight: json["weight"] as int?,
+        dimensions: json["dimensions"] == null ? null : Dimensions.fromJson(json["dimensions"] as Map<String, dynamic>),
+        warrantyInformation: json["warrantyInformation"]?.toString(),
+        shippingInformation: json["shippingInformation"] == null ? null : shippingInformationValues.map[json["shippingInformation"] as String]!,
+        availabilityStatus: json["availabilityStatus"] == null ? null : availabilityStatusValues.map[json["availabilityStatus"] as String]!,
+        reviews: json["reviews"] == null ? [] : List<Review>.from((json["reviews"] as List).map((x) => Review.fromJson(x as Map<String, dynamic>))),
+        returnPolicy: json["returnPolicy"] == null ? null : returnPolicyValues.map[json["returnPolicy"] as String]!,
+        minimumOrderQuantity: json["minimumOrderQuantity"] as int?,
+        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"] as Map<String, dynamic>),
+        images: json["images"] == null ? [] : List<String>.from((json["images"] as List).map((x) => x.toString())),
+        thumbnail: json["thumbnail"]?.toString(),
     );
 
     Map<String, dynamic> toJson() => {

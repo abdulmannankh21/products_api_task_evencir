@@ -30,7 +30,12 @@ abstract class BaseService {
 
   Map<String, dynamic> _handleResponse(http.Response response) {
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return json.decode(response.body);
+      final dynamic decodedBody = json.decode(response.body);
+      if (decodedBody is Map<String, dynamic>) {
+        return decodedBody;
+      } else {
+        throw Exception('Invalid response format');
+      }
     } else {
       throw Exception(AppConstants.genericError);
     }

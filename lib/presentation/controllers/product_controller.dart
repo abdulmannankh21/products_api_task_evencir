@@ -74,7 +74,7 @@ class ProductController extends GetxController {
       products.value = response.products ?? [];
       filteredProducts.value = products;
     } catch (e) {
-      _handleError('Failed to fetch products by category', e);
+      isLoading.value = false;
     } finally {
       isLoading.value = false;
     }

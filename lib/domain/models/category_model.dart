@@ -27,9 +27,9 @@ class CategoryModel {
   String toRawJson() => json.encode(toJson());
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
-    slug: json["slug"],
-    name: json["name"],
-    url: json["url"],
+    slug: json["slug"]?.toString(),
+    name: json["name"]?.toString(),
+    url: json["url"]?.toString(),
   );
 
   Map<String, dynamic> toJson() => {

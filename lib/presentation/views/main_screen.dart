@@ -29,6 +29,9 @@ class MainScreen extends StatelessWidget {
         currentIndex: navigationController.currentIndex.value,
         onTap: (index) => navigationController.currentIndex.value = index,
         type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.white,
+        backgroundColor: Colors.black,
+        unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),

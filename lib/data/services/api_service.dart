@@ -15,7 +15,10 @@ class ApiService {
   Future<ProductAPiModel> getProducts({int limit = 100}) async {
     try {
       final response = await _dio.get('/products', queryParameters: {'limit': limit});
-      return ProductAPiModel.fromJson(response.data);
+      if (response.data is Map<String, dynamic>) {
+        return ProductAPiModel.fromJson(response.data as Map<String, dynamic>);
+      }
+      throw Exception('Invalid response format');
     } catch (e) {
       throw Exception('Failed to fetch products');
     }
@@ -24,7 +27,10 @@ class ApiService {
   Future<Product> getProductById(int id) async {
     try {
       final response = await _dio.get('/products/$id');
-      return Product.fromJson(response.data);
+      if (response.data is Map<String, dynamic>) {
+        return Product.fromJson(response.data as Map<String, dynamic>);
+      }
+      throw Exception('Invalid response format');
     } catch (e) {
       throw Exception('Failed to fetch product details');
     }
@@ -33,8 +39,16 @@ class ApiService {
   Future<List<CategoryModel>> getCategories() async {
     try {
       final response = await _dio.get('/products/categories');
-      final List<dynamic> categoriesJson = response.data;
-      return categoriesJson.map((json) => CategoryModel.fromJson(json)).toList();
+      if (response.data is List) {
+        final List<dynamic> categoriesJson = response.data as List;
+        return categoriesJson.map((json) {
+          if (json is Map<String, dynamic>) {
+            return CategoryModel.fromJson(json);
+          }
+          throw Exception('Invalid category format');
+        }).toList();
+      }
+      throw Exception('Invalid response format');
     } catch (e) {
       throw Exception('Failed to fetch categories');
     }
@@ -43,7 +57,10 @@ class ApiService {
   Future<ProductAPiModel> getProductsByCategory(String categoryUrl) async {
     try {
       final response = await _dio.get(categoryUrl);
-      return ProductAPiModel.fromJson(response.data);
+      if (response.data is Map<String, dynamic>) {
+        return ProductAPiModel.fromJson(response.data as Map<String, dynamic>);
+      }
+      throw Exception('Invalid response format');
     } catch (e) {
       throw Exception('Failed to fetch products by category');
     }
